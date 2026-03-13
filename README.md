@@ -10,6 +10,14 @@ Flagged threats are explained with simple visual clues, helping security teams u
 
 ---
 
+## 🛠️ Prerequisites
+Before starting, ensure you have the following installed:
+- **Python 3.10+** (Backend)
+- **Node.js 18+** (Frontend)
+- **⚠️ NCAP Driver**: Mandatory for Live Monitoring.
+  - **Windows**: [Download Npcap](https://npcap.com/#download) (Select "WinPcap API-compatible Mode").
+  - **Linux**: `sudo apt install libpcap-dev`.
+
 ## 🏗️ Architecture Stack
 This project features a decoupled, scalable architecture containing three primary pillars:
 
