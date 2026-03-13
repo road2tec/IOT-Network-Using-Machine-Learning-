@@ -34,7 +34,7 @@ export default function Login() {
             localStorage.setItem('user', JSON.stringify(user));
 
             if (user.is_admin) {
-                navigate('/dashboard/admin');
+                navigate('/admin');
             } else {
                 navigate('/dashboard');
             }

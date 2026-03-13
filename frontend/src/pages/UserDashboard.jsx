@@ -15,19 +15,10 @@ import { AttackPieChart } from '../components/Charts';
 import { Link } from 'react-router-dom';
 
 export default function UserDashboard() {
-    const navigate = useNavigate();
     const [history, setHistory] = useState([]);
     const [stats, setStats] = useState({ total: 0, attacks: 0, normal: 0 });
 
     useEffect(() => {
-        const userStr = localStorage.getItem('user');
-        if (userStr) {
-            const user = JSON.parse(userStr);
-            if (user.is_admin) {
-                navigate('/dashboard/admin', { replace: true });
-            }
-        }
-        
         const fetchHistory = async () => {
             try {
                 const resp = await predictionService.getHistory();
@@ -40,7 +31,7 @@ export default function UserDashboard() {
             }
         };
         fetchHistory();
-    }, [navigate]);
+    }, []);
 
     return (
         <div className="space-y-10 pb-20">

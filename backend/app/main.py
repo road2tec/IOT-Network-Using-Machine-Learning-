@@ -32,24 +32,31 @@ app.include_router(live.router)
 # Create default admin on startup
 @app.on_event("startup")
 def create_default_admin():
+    import os
     from app.database import SessionLocal
     from app.models.user_model import User
     from app.routes.auth import get_password_hash
     
+    admin_username = os.getenv("ADMIN_USERNAME", "admin")
+    admin_email = os.getenv("ADMIN_EMAIL", "admin@ids.xai")
+    admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
+    
     db = SessionLocal()
     try:
-        admin_exists = db.query(User).filter(User.username == "admin").first()
+        admin_exists = db.query(User).filter(User.username == admin_username).first()
         if not admin_exists:
-            hashed_pw = get_password_hash("admin123")
+            hashed_pw = get_password_hash(admin_password)
             admin_user = User(
-                username="admin",
-                email="admin@ids.xai",
+                username=admin_username,
+                email=admin_email,
                 hashed_password=hashed_pw,
                 is_admin=True
             )
             db.add(admin_user)
             db.commit()
-            print("Default admin user created: admin / admin123")
+            print(f"[STARTUP] Default admin created → Login: {admin_username} / {admin_password}")
+        else:
+            print(f"[STARTUP] Admin account '{admin_username}' already exists.")
     finally:
         db.close()
 
