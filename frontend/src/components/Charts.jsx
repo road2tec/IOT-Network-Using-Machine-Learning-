@@ -31,7 +31,7 @@ export function TrafficLineChart({ data }) {
         maintainAspectRatio: false,
         plugins: {
             legend: { position: 'top', labels: { color: '#ccc' } },
-            title: { display: true, text: 'Prediction Activity Timeline', color: '#fff' },
+            title: { display: true, text: 'Network Activity Trend', color: '#fff' },
         },
         scales: {
             y: { ticks: { color: '#ccc' }, grid: { color: 'rgba(255,255,255,0.1)' } },
@@ -43,7 +43,7 @@ export function TrafficLineChart({ data }) {
         labels: data.map(d => d.date),
         datasets: [
             {
-                label: 'Total Predictions',
+                label: 'Scans Performed',
                 data: data.map(d => d.count),
                 borderColor: '#00F5D4',
                 backgroundColor: 'rgba(0, 245, 212, 0.5)',
@@ -57,7 +57,7 @@ export function TrafficLineChart({ data }) {
 
 export function AttackPieChart({ normal, attack }) {
     const data = {
-        labels: ['Normal', 'Attack'],
+        labels: ['Safe Traffic', 'Potential Danger'],
         datasets: [
             {
                 data: [normal, attack],
@@ -97,7 +97,7 @@ export function FeatureBarChart({ labels, values }) {
         responsive: true,
         plugins: {
             legend: { display: false },
-            title: { display: true, text: 'Local SHAP Explanation', color: '#fff' }
+            title: { display: true, text: 'Decision Factors', color: '#fff' }
         },
         scales: {
             x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#ccc' } },

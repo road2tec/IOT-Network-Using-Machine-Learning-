@@ -5,11 +5,13 @@ passlib[bcrypt]
 bcrypt==3.2.2
 python-jose[cryptography]
 python-multipart
-pandas
-numpy
+pandas>=2.0.0
+numpy<2.0.0
 scikit-learn
 xgboost
 shap
 joblib
 pydantic
 pydantic-settings
+websockets
+scapy

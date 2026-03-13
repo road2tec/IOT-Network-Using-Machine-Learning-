@@ -1,198 +1,362 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import {
+    BoltIcon,
+    MagnifyingGlassIcon,
+    ShieldCheckIcon,
+    CpuChipIcon,
+    ArrowTrendingUpIcon,
+    GlobeAltIcon,
+    PresentationChartBarIcon,
+    RocketLaunchIcon,
+    CheckCircleIcon
+} from '@heroicons/react/24/outline';
 
 export default function Landing() {
+    const { scrollYProgress } = useScroll();
+    const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full selection:bg-cyber-cyan selection:text-slate-900">
             {/* Hero Section */}
-            <div id="home" className="flex flex-col items-center justify-center pt-32 pb-8 px-4 text-center">
+            <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
+                {/* Background Decorations */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
+                    <div className="absolute top-[10%] left-[10%] w-[30%] h-[30%] bg-cyber-cyan/10 blur-[120px] rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-[10%] right-[10%] w-[40%] h-[40%] bg-cyber-purple/10 blur-[150px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                </div>
+
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-6xl w-full"
+                    style={{ opacity, scale }}
+                    className="max-w-6xl w-full text-center z-10"
                 >
-                    <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-blue-400 to-cyber-purple">
-                        Explainable & Intelligent
-                        <br />
-                        Intrusion Detection
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/5 mb-8"
+                    >
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyber-cyan opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyber-cyan"></span>
+                        </span>
+                        <span className="text-xs font-bold tracking-widest text-cyber-cyan uppercase">v2.0 Now Live • XGBoost Optimized</span>
+                    </motion.div>
+
+                    <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[1.1]">
+                        Explainable
+                        <span className="block bg-clip-text text-transparent bg-gradient-to-r from-cyber-cyan via-white to-cyber-purple drop-shadow-[0_0_15px_rgba(0,245,212,0.3)]">
+                            Intrusion Defense
+                        </span>
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto">
-                        Secure your IoT networks with state-of-the-art XGBoost classification powered by real-time SHAP explainability.
+
+                    <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                        Secure your IoT networks with state-of-the-art XGBoost classification powered by real-time <span className="text-white font-semibold">SHAP explainability</span> for mission-critical clarity.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 relative z-20">
-                        <Link to="/register" className="px-8 py-4 bg-cyber-cyan text-slate-900 font-bold rounded-lg hover:bg-white hover:text-black transition-all shadow-[0_0_20px_rgba(0,245,212,0.4)] hover:shadow-[0_0_30px_rgba(0,245,212,0.8)]">
-                            Start Securing Now
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center mt-8 relative z-20">
+                        <Link to="/register" className="group relative px-10 py-5 bg-cyber-cyan text-slate-900 font-black rounded-2xl hover:bg-white transition-all overflow-hidden shadow-[0_0_30px_rgba(0,245,212,0.3)]">
+                            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                            <span className="relative flex items-center gap-2">
+                                START SECURING <RocketLaunchIcon className="w-5 h-5" />
+                            </span>
                         </Link>
-                        <Link to="/login" className="px-8 py-4 bg-transparent border border-gray-600 text-gray-300 font-bold rounded-lg hover:border-cyber-cyan hover:text-cyber-cyan transition-all">
-                            Access Dashboard
+                        <Link to="/login" className="px-10 py-5 bg-white/5 border border-white/10 text-white font-bold rounded-2xl hover:border-cyber-cyan/50 hover:bg-white/10 transition-all backdrop-blur-sm">
+                            ACCESS TERMINAL
                         </Link>
                     </div>
 
                     {/* Futuristic Data Stream Animation */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.5, delay: 0.5 }}
-                        className="mt-20 relative mx-auto w-full max-w-5xl h-[400px] border border-cyber-cyan/20 rounded-2xl overflow-hidden glass-panel flex items-center justify-center p-8"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        className="mt-24 relative mx-auto w-full max-w-5xl h-[500px] border border-white/5 rounded-[2.5rem] overflow-hidden glass-panel flex items-center justify-center shadow-2xl"
                     >
-                        {/* Background glow */}
+                        {/* Background grid/dots */}
+                        <div className="absolute inset-0 bg-dot-grid opacity-30"></div>
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,245,212,0.1)_0,transparent_70%)]"></div>
 
                         {/* Abstract Network Interface */}
                         <div className="relative w-full h-full flex items-center justify-center">
                             {/* Scanning Laser */}
                             <motion.div
-                                animate={{ y: ['-200%', '200%'] }}
-                                transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                                className="absolute w-[150%] h-1 bg-cyber-cyan shadow-[0_0_20px_#00F5D4] z-20 rotate-12 opacity-50"
+                                animate={{ y: ['-250%', '250%'] }}
+                                transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                                className="absolute w-[150%] h-[2px] bg-gradient-to-r from-transparent via-cyber-cyan to-transparent shadow-[0_0_25px_#00F5D4] z-20 rotate-6 opacity-40"
                             />
 
                             {/* Center Security Core */}
                             <motion.div
-                                animate={{ scale: [1, 1.05, 1], borderColor: ['rgba(0,245,212,0.2)', 'rgba(0,245,212,0.8)', 'rgba(0,245,212,0.2)'] }}
-                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                                className="absolute w-64 h-64 rounded-full border border-cyber-cyan/40 bg-cyber-bg shadow-[0_0_50px_rgba(0,245,212,0.1)] flex items-center justify-center z-10"
+                                animate={{
+                                    scale: [1, 1.02, 1],
+                                    boxShadow: ['0 0 50px rgba(0,245,212,0.1)', '0 0 80px rgba(124,58,237,0.2)', '0 0 50px rgba(0,245,212,0.1)']
+                                }}
+                                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                                className="absolute w-72 h-72 rounded-[3rem] border border-white/10 bg-slate-900/80 backdrop-blur-xl flex items-center justify-center z-10"
                             >
                                 <motion.div
                                     animate={{ rotate: 360 }}
-                                    transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                                    className="absolute w-56 h-56 rounded-full border-t-2 border-r-2 border-dashed border-cyber-purple/60"
+                                    transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+                                    className="absolute inset-4 rounded-[2.5rem] border border-dashed border-cyber-purple/40"
                                 />
                                 <motion.div
                                     animate={{ rotate: -360 }}
-                                    transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-                                    className="absolute w-48 h-48 rounded-full border-b-2 border-l-2 border-dashed border-cyber-cyan/60"
+                                    transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
+                                    className="absolute inset-8 rounded-[2rem] border border-dashed border-cyber-cyan/30"
                                 />
                                 <div className="text-center font-mono">
-                                    <div className="text-3xl text-white font-bold tracking-widest">XAI<span className="text-cyber-cyan">.</span>CORE</div>
-                                    <div className="text-xs text-cyber-purple mt-2 tracking-widest uppercase opacity-80">Monitoring</div>
+                                    <div className="text-xs text-cyber-cyan mb-2 tracking-[0.3em] font-bold">SYSTEM CORE</div>
+                                    <div className="text-4xl text-white font-black tracking-widest flex items-center gap-1">
+                                        XAI<span className="text-cyber-purple">ID</span>S
+                                    </div>
+                                    <motion.div
+                                        animate={{ opacity: [0.5, 1, 0.5] }}
+                                        transition={{ repeat: Infinity, duration: 2 }}
+                                        className="text-[10px] text-gray-500 mt-4 tracking-widest uppercase"
+                                    >
+                                        Analyzing Traffic...
+                                    </motion.div>
                                 </div>
                             </motion.div>
 
                             {/* Floating Packets / Orbs */}
-                            <motion.div
-                                animate={{ y: [0, -30, 0], x: [0, 20, 0], opacity: [0.3, 0.8, 0.3] }}
-                                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                                className="absolute top-1/4 left-1/4 w-4 h-4 rounded-full bg-cyber-purple shadow-[0_0_15px_#7C3AED]"
-                            />
-                            <motion.div
-                                animate={{ y: [0, 40, 0], x: [0, -20, 0], opacity: [0.4, 0.9, 0.4] }}
-                                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-                                className="absolute bottom-1/4 right-1/4 w-3 h-3 rounded-full bg-cyber-cyan shadow-[0_0_15px_#00F5D4]"
-                            />
-
-                            {/* Network Connections */}
-                            <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
-                                <motion.path
-                                    d="M 200,100 L 400,200 L 600,100"
-                                    fill="transparent"
-                                    stroke="#00F5D4"
-                                    strokeWidth="2"
-                                    initial={{ pathLength: 0 }}
-                                    animate={{ pathLength: 1 }}
-                                    transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                            {[...Array(6)].map((_, i) => (
+                                <motion.div
+                                    key={i}
+                                    animate={{
+                                        y: [0, Math.random() * 80 - 40, 0],
+                                        x: [0, Math.random() * 80 - 40, 0],
+                                        opacity: [0.1, 0.6, 0.1]
+                                    }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 4 + Math.random() * 4,
+                                        delay: Math.random() * 2
+                                    }}
+                                    className={`absolute w-${i % 2 === 0 ? '3' : '2'} h-${i % 2 === 0 ? '3' : '2'} rounded-full ${i % 3 === 0 ? 'bg-cyber-cyan shadow-[0_0_15px_#00F5D4]' : 'bg-cyber-purple shadow-[0_0_15px_#7C3AED]'}`}
+                                    style={{
+                                        top: `${20 + Math.random() * 60}%`,
+                                        left: `${20 + Math.random() * 60}%`
+                                    }}
                                 />
-                                <motion.path
-                                    d="M 300,300 L 400,200 L 500,300"
-                                    fill="transparent"
-                                    stroke="#7C3AED"
-                                    strokeWidth="2"
-                                    initial={{ pathLength: 0 }}
-                                    animate={{ pathLength: 1 }}
-                                    transition={{ repeat: Infinity, duration: 4, ease: "linear", delay: 1 }}
-                                />
-                            </svg>
+                            ))}
                         </div>
                         {/* Bottom fade overlap */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-cyber-bg to-transparent z-10 bottom-0 top-[80%]"></div>
+                        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-slate-950 to-transparent z-10"></div>
                     </motion.div>
                 </motion.div>
+            </section>
+
+            {/* Live Preview Section */}
+            <section className="py-32 px-4 relative">
+                <div className="max-w-6xl mx-auto">
+                    <div className="flex flex-col md:flex-row items-center gap-16">
+                        <div className="flex-1 space-y-8">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/30 bg-red-500/5">
+                                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                <span className="text-[10px] font-black text-red-400 uppercase tracking-[0.2em]">Real-time Watch</span>
+                            </div>
+                            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight uppercase tracking-tighter">
+                                Live Network 
+                                <br />
+                                <span className="text-cyber-cyan">Monitoring</span>
+                            </h2>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Don't just detect — observe. Our dashboard provides a millisecond-accurate stream of every packet entering your IoT ecosystem, instantly analyzed by AI.
+                            </p>
+                            <div className="flex flex-col gap-4">
+                                <LiveFeature text="Instant Threat Flagging" />
+                                <LiveFeature text="Protocol Decomposition (TCP/UDP)" />
+                                <LiveFeature text="98%+ Prediction Confidence" />
+                            </div>
+                        </div>
+
+                        <div className="flex-1 w-full max-w-2xl">
+                            {/* Simulated Live Terminal */}
+                            <div className="glass-panel rounded-[2rem] border border-white/5 overflow-hidden shadow-2xl shadow-cyber-cyan/10">
+                                <div className="bg-slate-900 p-4 border-b border-white/5 flex items-center justify-between">
+                                    <div className="flex gap-1.5">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
+                                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></div>
+                                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
+                                    </div>
+                                    <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Incoming Traffic Stream</div>
+                                </div>
+                                <div className="p-6 bg-black/40 font-mono text-[11px] h-[350px] overflow-hidden relative">
+                                    <div className="space-y-3">
+                                        <SimulatedRow time="16:01:22" type="TCP" color="text-blue-400" label="S:443 | D:1024" status="NORMAL" />
+                                        <SimulatedRow time="16:01:23" type="UDP" color="text-purple-400" label="S:53 | D:56781" status="NORMAL" />
+                                        <SimulatedRow time="16:01:25" type="TCP" color="text-blue-400" label="S:80 | D:255" status="ATTACK" highlight />
+                                        <SimulatedRow time="16:01:26" type="OTHER" color="text-cyber-cyan" label="S:0 | D:0" status="NORMAL" />
+                                        <SimulatedRow time="16:01:28" type="TCP" color="text-blue-400" label="S:443 | D:1024" status="NORMAL" />
+                                        <SimulatedRow time="16:01:29" type="UDP" color="text-red-400" label="S:8080 | D:80" status="ATTACK" highlight />
+                                        <SimulatedRow time="16:01:30" type="TCP" color="text-blue-400" label="S:22 | D:123" status="NORMAL" />
+                                        <SimulatedRow time="16:01:31" type="OTHER" color="text-cyber-cyan" label="ICMP_REQUEST" status="NORMAL" />
+                                    </div>
+                                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                                </div>
+                                <div className="p-4 bg-slate-900/50 text-center">
+                                    <Link to="/register" className="text-[10px] font-bold text-cyber-cyan uppercase tracking-[0.2em] hover:text-white transition-colors">
+                                        Unlock Full Dashboard →
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Stats/Metrics Section */}
+            <div className="py-20 bg-slate-950 border-y border-white/5">
+                <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <StatItem label="Attack Types Detected" value="9+" icon={<ShieldCheckIcon className="w-5 h-5 text-cyber-cyan" />} />
+                    <StatItem label="Detection Accuracy" value="98.2%" icon={<ArrowTrendingUpIcon className="w-5 h-5 text-cyber-purple" />} />
+                    <StatItem label="Processing Latency" value="< 2ms" icon={<BoltIcon className="w-5 h-5 text-cyber-cyan" />} />
+                    <StatItem label="XAI Feature Depth" value="40+" icon={<CpuChipIcon className="w-5 h-5 text-cyber-purple" />} />
+                </div>
             </div>
 
             {/* Features Section */}
-            <div id="features" className="py-24 px-4 bg-cyber-card/30">
-                <div className="max-w-6xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16 text-white"><span className="text-cyber-cyan">Key</span> Features</h2>
-                    <div className="grid md:grid-cols-3 gap-8 text-left">
+            <div id="features" className="py-32 px-4 relative overflow-hidden">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-24">
+                        <h2 className="text-sm font-black text-cyber-cyan tracking-[0.4em] uppercase mb-4">Core Capabilities</h2>
+                        <h3 className="text-4xl md:text-5xl font-extrabold text-white">Engineered for Security</h3>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
                         <FeatureCard
                             title="XGBoost Classifier"
-                            desc="Trained on UNSW-NB15 dataset achieving 90%+ diagnostic accuracy on modern network traffic."
-                            icon="⚡"
+                            desc="Optimized for high-velocity network streams with sub-millisecond classification response times."
+                            icon={<BoltIcon />}
+                            color="cyan"
                         />
                         <FeatureCard
-                            title="Explainable AI (SHAP)"
-                            desc="Don't just trust black-box alerts. View interactive local force plots and global feature distributions."
-                            icon="🔍"
+                            title="SHAP Explainability"
+                            desc="Real-time feature attribution reveals precisely why traffic was flagged, eliminating false positive fatigue."
+                            icon={<MagnifyingGlassIcon />}
+                            color="purple"
                         />
                         <FeatureCard
-                            title="Role Based Insights"
-                            desc="Decoupled User inference UI and global Admin dashboard statistics on network analytics."
-                            icon="🛡️"
+                            title="Admin Intelligence"
+                            desc="Comprehensive dashboard for global visibility into attack patterns, geolocation, and threat trends."
+                            icon={<PresentationChartBarIcon />}
+                            color="white"
                         />
                     </div>
                 </div>
             </div>
 
             {/* How It Works Section */}
-            <div id="how-it-works" className="py-24 px-4">
+            <div id="how-it-works" className="py-32 px-4 bg-white/[0.02] border-y border-white/5 relative">
                 <div className="max-w-5xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center text-white"><span className="text-cyber-purple">How</span> It Works</h2>
-                    <div className="space-y-12">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-4 text-center md:text-left">
+                        <div>
+                            <h2 className="text-sm font-black text-cyber-purple tracking-[0.4em] uppercase mb-4">The Pipeline</h2>
+                            <h3 className="text-4xl md:text-5xl font-extrabold text-white">Intelligence Workflow</h3>
+                        </div>
+                        <p className="text-slate-400 max-w-sm mb-2">A seamless transition from raw packet capture to actionable, explained security alerts.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
                         <StepCard
                             number="01"
-                            title="Data Collection & Input"
-                            desc="Network flow data is captured and input into the system in real-time or via manual CSV upload."
+                            title="Traffic Capture"
+                            desc="Real-time ingestion of network flow data through high-performance ingestion nodes."
+                            icon={<GlobeAltIcon className="w-6 h-6" />}
                         />
                         <StepCard
                             number="02"
-                            title="AI Inference Pipeline"
-                            desc="The XGBoost model, optimized for high precision and recall, classifies the traffic as Benign or malicious (e.g., DoS, Fuzzers, Exploits)."
+                            title="AI Inference"
+                            desc="Native XGBoost models classify patterns into 9 distinct attack categories or benign traffic."
+                            icon={<CpuChipIcon className="w-6 h-6" />}
                         />
                         <StepCard
                             number="03"
-                            title="SHAP Explainability"
-                            desc="Alongside the prediction, SHAP values are computed to identify the top network features (like TTL or bytes transferred) that influenced the AI’s decision."
+                            title="SHAP Computation"
+                            desc="Deep mathematical analysis of feature contributions for every single detection event."
+                            icon={<ArrowTrendingUpIcon className="w-6 h-6" />}
                         />
                         <StepCard
                             number="04"
-                            title="Analytics Dashboard"
-                            desc="Interactive charts are rendered for administrators to analyze overall network health and specific intrusion alerts."
+                            title="Explained Insight"
+                            desc="Instant visualization of threat factors through local force plots and global statistics."
+                            icon={<PresentationChartBarIcon className="w-6 h-6" />}
                         />
                     </div>
                 </div>
             </div>
 
             {/* About Section */}
-            <div id="about" className="py-24 px-4 bg-cyber-card/30">
+            <div id="about" className="py-32 px-4 relative overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10">
+                    <div className="absolute top-1/2 left-[20%] w-[40%] h-[40%] bg-cyber-cyan/5 blur-[100px] rounded-full"></div>
+                </div>
+
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-8 text-white"><span className="text-cyber-cyan">About</span> The System</h2>
-                    <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                        This Explanable Intrusion Detection System is built as part of an advanced cybersecurity project aimed at demystifying AI decisions in critical infrastructure. We combine the predictive power of machine learning with transparent insights through SHAP (SHapley Additive exPlanations).
+                    <div className="w-20 h-20 bg-gradient-to-br from-cyber-cyan to-cyber-purple rounded-3xl mx-auto mb-10 flex items-center justify-center shadow-2xl rotate-12">
+                        <ShieldCheckIcon className="w-10 h-10 text-slate-900" />
+                    </div>
+
+                    <h2 className="text-4xl font-extrabold mb-8 text-white">Trust, but <span className="text-cyber-cyan italic underline underline-offset-8 decoration-cyber-cyan/30">Explain</span>.</h2>
+                    <p className="text-xl text-slate-400 mb-10 leading-relaxed italic">
+                        "The goal is not just an accurate model, but a model that can be trusted by security professionals who need to know 'Why'."
                     </p>
-                    <p className="text-lg text-gray-300 leading-relaxed mb-6">
-                        The web application utilizes a modern tech stack featuring React, FastAPI, Python, and securely stores user data utilizing <strong>MongoDB Compass</strong>. By prioritizing Explainable AI (XAI), we ensure that network administrators are never left guessing why a specific packet was flagged as an attack.
-                    </p>
-                    <div className="inline-block mt-4 glass-panel px-6 py-3 rounded-xl border border-cyber-purple/50">
-                        <span className="font-semibold text-cyber-purple">Powered by MongoDB Compass</span>
+
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <TechBadge name="React" />
+                        <TechBadge name="FastAPI" />
+                        <TechBadge name="XGBoost" />
+                        <TechBadge name="SHAP" />
+                        <TechBadge name="MongoDB" />
+                        <TechBadge name="Tailwind" />
                     </div>
                 </div>
             </div>
 
+            {/* CTA Section */}
+            <div className="py-32 px-4 pb-48">
+                <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    className="max-w-5xl mx-auto glass-panel p-12 md:p-20 rounded-[3rem] text-center border border-white/10 relative overflow-hidden"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/10 to-cyber-purple/10 opacity-50"></div>
+                    <div className="relative z-10">
+                        <h2 className="text-4xl md:text-6xl font-black text-white mb-8">Ready to deploy?</h2>
+                        <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+                            Join the next generation of cybersecurity where AI and human intelligence work in tandem.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link to="/register" className="px-12 py-5 bg-white text-slate-900 font-black rounded-2xl hover:bg-cyber-cyan transition-all shadow-xl">
+                                GET STARTED NOW
+                            </Link>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+
             {/* Footer */}
-            <footer className="py-8 border-t border-gray-800 bg-cyber-bg text-center">
-                <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="text-2xl font-bold tracking-tighter">
-                        <span className="text-cyber-cyan">IDS</span><span className="text-white">_XAI</span>
+            <footer className="py-12 border-t border-white/5 bg-slate-950 px-4">
+                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-cyber-cyan rounded flex items-center justify-center">
+                            <ShieldCheckIcon className="w-5 h-5 text-slate-900" />
+                        </div>
+                        <div className="text-2xl font-black tracking-tighter">
+                            IDS<span className="text-cyber-cyan italic">.</span>XAI
+                        </div>
                     </div>
-                    <div className="text-gray-500 text-sm">
-                        &copy; {new Date().getFullYear()} IDS XAI System. All Rights Reserved.
+
+                    <div className="flex gap-10">
+                        <a href="#features" className="text-slate-500 hover:text-cyber-cyan transition-colors text-sm font-bold uppercase tracking-widest">Features</a>
+                        <a href="#how-it-works" className="text-slate-500 hover:text-cyber-cyan transition-colors text-sm font-bold uppercase tracking-widest">Workflow</a>
+                        <a href="#about" className="text-slate-500 hover:text-cyber-cyan transition-colors text-sm font-bold uppercase tracking-widest">About</a>
                     </div>
-                    <div className="flex gap-4">
-                        <a href="#features" className="text-gray-400 hover:text-cyber-cyan transition-colors text-sm">Features</a>
-                        <a href="#how-it-works" className="text-gray-400 hover:text-cyber-cyan transition-colors text-sm">How it Works</a>
-                        <a href="#about" className="text-gray-400 hover:text-cyber-cyan transition-colors text-sm">About</a>
+
+                    <div className="text-slate-600 text-xs font-mono uppercase tracking-widest">
+                        © {new Date().getFullYear()} CORE_OS // System Terminal
                     </div>
                 </div>
             </footer>
@@ -200,37 +364,98 @@ export default function Landing() {
     );
 }
 
-function FeatureCard({ title, desc, icon }) {
+function StatItem({ label, value, icon }) {
+    return (
+        <div className="flex flex-col items-center justify-center">
+            <div className="mb-3 p-2 bg-white/5 rounded-lg border border-white/5">
+                {icon}
+            </div>
+            <div className="text-3xl font-black text-white mb-1 uppercase tracking-tighter">{value}</div>
+            <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{label}</div>
+        </div>
+    );
+}
+
+function TechBadge({ name }) {
+    return (
+        <span className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm font-bold hover:border-cyber-cyan/50 hover:text-white transition-all cursor-default">
+            {name}
+        </span>
+    );
+}
+
+function FeatureCard({ title, desc, icon, color }) {
+    const colorClasses = {
+        cyan: "bg-cyber-cyan/10 text-cyber-cyan border-cyber-cyan/20",
+        purple: "bg-cyber-purple/10 text-cyber-purple border-cyber-purple/20",
+        white: "bg-white/10 text-white border-white/20"
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="glass-panel p-8 rounded-2xl hover:border-cyber-cyan/50 transition-colors h-full"
+            whileHover={{ y: -10, borderColor: 'rgba(255,255,255,0.2)' }}
+            className="group glass-panel p-10 rounded-[2.5rem] border border-white/5 transition-all h-full flex flex-col"
         >
-            <div className="text-4xl mb-4">{icon}</div>
-            <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
-            <p className="text-gray-400 leading-relaxed">{desc}</p>
+            <div className={`w-14 h-14 rounded-2xl mb-8 flex items-center justify-center border ${colorClasses[color]}`}>
+                {icon && <div className="w-7 h-7">{icon}</div>}
+            </div>
+            <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-cyber-cyan transition-colors">{title}</h3>
+            <p className="text-slate-400 leading-relaxed text-lg">{desc}</p>
         </motion.div>
     );
 }
 
-function StepCard({ number, title, desc }) {
+function StepCard({ number, title, desc, icon }) {
     return (
         <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-start md:items-center gap-6 glass-panel p-6 rounded-2xl border-l-4 border-l-cyber-purple hover:border-l-cyber-cyan transition-colors"
+            className="group flex flex-col md:flex-row items-center md:items-start gap-8 glass-panel p-8 rounded-[2rem] border border-white/5 hover:bg-white/[0.04] transition-all"
         >
-            <div className="text-5xl font-extrabold text-cyber-purple/20 md:w-24 shrink-0">
-                {number}
+            <div className="relative shrink-0">
+                <div className="text-5xl font-black text-white/5 select-none absolute -top-4 -left-4">
+                    {number}
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl flex items-center justify-center border border-white/10 relative z-10 group-hover:border-cyber-purple/50 transition-colors shadow-xl">
+                    <div className="text-cyber-purple">
+                        {icon}
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
-                <p className="text-gray-400">{desc}</p>
+            <div className="text-center md:text-left">
+                <h3 className="text-xl font-bold text-white mb-3 tracking-tight">{title}</h3>
+                <p className="text-slate-400 leading-relaxed">{desc}</p>
             </div>
         </motion.div>
+    );
+}
+
+function LiveFeature({ text }) {
+    return (
+        <div className="flex items-center gap-3">
+            <div className="w-5 h-5 rounded-full bg-cyber-cyan/20 flex items-center justify-center border border-cyber-cyan/30">
+                <CheckCircleIcon className="w-3 h-3 text-cyber-cyan" />
+            </div>
+            <span className="text-sm text-gray-400 font-bold uppercase tracking-widest">{text}</span>
+        </div>
+    );
+}
+
+function SimulatedRow({ time, type, color, label, status, highlight }) {
+    return (
+        <div className={`flex items-center justify-between p-2 rounded-lg border ${highlight ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-white/5 border-white/5 text-gray-400'} transition-all`}>
+            <div className="flex items-center gap-4">
+                <span className="text-[9px] opacity-40 font-mono">{time}</span>
+                <span className={`text-[10px] font-black ${color} w-10 text-center`}>{type}</span>
+                <span className="text-[10px] opacity-60">{label}</span>
+            </div>
+            <div className={`text-[9px] font-black px-2 py-0.5 rounded ${status === 'ATTACK' ? 'bg-red-500/20' : 'bg-green-500/20 text-green-400'}`}>
+                [{status}]
+            </div>
+        </div>
     );
 }

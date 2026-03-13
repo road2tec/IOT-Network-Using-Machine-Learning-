@@ -18,9 +18,11 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <Link to="/" className="flex-shrink-0 font-bold text-2xl tracking-tighter">
-                            <span className="text-cyber-cyan">IDS</span>
-                            <span className="text-white">_XAI</span>
+                        <Link to="/" className="flex items-center gap-2 font-black text-2xl tracking-tighter group">
+                            <div className="w-8 h-8 bg-cyber-cyan rounded flex items-center justify-center group-hover:shadow-[0_0_15px_#00F5D4] transition-all">
+                                <span className="text-slate-900 text-xs font-bold">XAI</span>
+                            </div>
+                            <span className="text-white">IDS<span className="text-cyber-cyan italic">.</span>XAI</span>
                         </Link>
                     </div>
                     <div className="hidden md:block">

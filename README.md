@@ -4,10 +4,9 @@
 
 *(Concept illustrative screenshot of the UI design)*
 
-## 💡 Problem Statement
-Traditional Intrusion Detection Systems (IDS) act as "black boxes"—they correctly categorize normal and attack traffic but fail to explain why. In critical network operations, safety teams require interpretable rationales. 
+Traditional Intrusion Detection Systems (IDS) are like "black boxes"—they don't explain why they flag something as a threat. This project uses **Explainable AI (SHAP)** to show you the exact reasons behind every security alert. 
 
-This full-stack application utilizes **XGBoost** paired with **Explainable AI (SHAP)** to achieve **90%+ predictive accuracy** on the UNSW-NB15 dataset, alongside providing interactive localized predictions and insights. Network anomalies are not only flagged but mathematically justified based on feature impact (like Time To Live, Packet Bytes, Services etc).
+Flagged threats are explained with simple visual clues, helping security teams understand if a detection is a real attack or just a regular network event.
 
 ---
 
@@ -83,9 +82,14 @@ source venv/bin/activate     # Activate it (Windows: venv\Scripts\activate)
 pip install -r requirements.txt
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
-*The API should now be running on http://127.0.0.1:8000/docs (Swagger UI)*
+*The API should now be running on http://127.0.0.1:8000/docs*
 
-### 2. Initiate Frontend Dashboard (React/Vite)
+### ⚠️ IMPORTANT: Live Monitor Setup
+To use the **Live Monitoring** feature, you must install a packet capture driver on your computer:
+1.  **Windows**: Download and install [Npcap](https://npcap.com/#download). (Check the box "Install Npcap in WinPcap API-compatible Mode" during setup).
+2.  **Linux**: Install `libpcap` using your terminal: `sudo apt-get install libpcap-dev`.
+
+### 2. Start the Frontend (Web Dashboard)
 Open a new terminal session, navigate to the `frontend` directory, and start the node server:
 ```bash
 cd frontend

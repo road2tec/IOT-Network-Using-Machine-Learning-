@@ -8,7 +8,7 @@ export default {
         extend: {
             colors: {
                 cyber: {
-                    bg: "#0F172A", // Background
+                    bg: "#020617", // Deeper dark background
                     card: "#1E293B", // Card
                     cyan: "#00F5D4", // Accent Cyan
                     purple: "#7C3AED", // Accent Purple
